@@ -1,0 +1,42 @@
+#
+# Rocketgraph web server (nginx)
+#
+
+# Pull base image.
+FROM nginx:1.9
+
+MAINTAINER Konstantinos Christofilos <kostas.christofilos@rocketgraph.com>
+
+# Install base.
+RUN \
+  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get install -y curl vim wget && \
+  apt-get install -y supervisor
+
+ADD ./default.conf /etc/nginx/conf.d/default.conf
+
+# Install PHP 5.6
+RUN \
+  apt-get -y update && \
+  apt-get -y install php5-cli php5-fpm php5-mysqlnd php5-curl
+
+ADD ./nginx.conf /etc/nginx/nginx.conf
+ADD ./www.conf /etc/php5/fpm/pool.d/www.conf
+ADD ./php.ini /etc/php5/fpm/php.ini
+ADD ./php_cli.ini /etc/php5/cli/php.ini
+
+# Setup supervisor
+ADD ./supervisor_nginx.conf /etc/supervisor/conf.d/supervisor_nginx.conf
+ADD ./supervisor_phpfpm.conf /etc/supervisor/conf.d/supervisor_phpfpm.conf
+
+RUN service supervisor start
+
+ADD ./start.sh /start.sh
+
+RUN chmod a+x /start.sh
+
+# Define mountable directories.
+VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html", "/usr/local/etc/php"]
+
+ENTRYPOINT ["/start.sh"]
