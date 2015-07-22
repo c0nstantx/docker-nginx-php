@@ -25,6 +25,7 @@ ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./www.conf /etc/php5/fpm/pool.d/www.conf
 ADD ./php.ini /etc/php5/fpm/php.ini
 ADD ./php_cli.ini /etc/php5/cli/php.ini
+ADD ./browscap.ini /etc/php5/browscap.ini
 
 # Setup supervisor
 ADD ./supervisor_nginx.conf /etc/supervisor/conf.d/supervisor_nginx.conf
