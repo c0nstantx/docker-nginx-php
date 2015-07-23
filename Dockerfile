@@ -28,6 +28,7 @@ ADD ./php_cli.ini /etc/php5/cli/php.ini
 ADD ./browscap.ini /etc/php5/browscap.ini
 
 # Setup supervisor
+ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./supervisor_nginx.conf /etc/supervisor/conf.d/supervisor_nginx.conf
 ADD ./supervisor_phpfpm.conf /etc/supervisor/conf.d/supervisor_phpfpm.conf
 
