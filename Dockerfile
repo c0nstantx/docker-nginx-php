@@ -19,7 +19,7 @@ ADD ./default.conf /etc/nginx/conf.d/default.conf
 # Install PHP 5.6
 RUN \
   apt-get -y update && \
-  apt-get -y install php5-cli php5-fpm php5-mysqlnd php5-curl php5-xsl php5-xdebug php5-sqlite php5-intl
+  apt-get -y install php5-cli php5-fpm php5-mysqlnd php5-curl php5-xsl php5-xdebug php5-sqlite php5-intl php5-gd
 
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./www.conf /etc/php5/fpm/pool.d/www.conf
