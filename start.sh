@@ -4,4 +4,5 @@ set -e -x
 if [ ! -z "$LOGSTASH_IP" ] && [ ! -z "$LOGSTASH_HOST" ]; then
     echo "${LOGSTASH_IP} ${LOGSTASH_HOST}" >> /etc/hosts
 fi
+/usr/sbin/php5-fpm
 supervisord -n

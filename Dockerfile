@@ -35,7 +35,6 @@ RUN rm /logstash-forwarder_0.4.0_amd64.deb
 # Setup supervisor
 ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./supervisor_nginx.conf /etc/supervisor/conf.d/supervisor_nginx.conf
-ADD ./supervisor_phpfpm.conf /etc/supervisor/conf.d/supervisor_phpfpm.conf
 
 RUN service supervisor start
 
