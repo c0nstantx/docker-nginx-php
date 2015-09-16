@@ -15,6 +15,7 @@ RUN \
   apt-get install -y supervisor
 
 ADD ./default.conf /etc/nginx/conf.d/default.conf
+ADD ./default.conf.stage /etc/nginx/conf.d/default.conf.stage
 
 # Install PHP 5.6
 RUN \
