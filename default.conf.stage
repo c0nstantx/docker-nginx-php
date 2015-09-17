@@ -25,5 +25,5 @@ server {
     }
 
     error_log /var/log/nginx/rocketgraph_error.log;
-    access_log /var/log/nginx/rocketgraph_access.log;
+    access_log /var/log/nginx/rocketgraph_access.log main;
 }
