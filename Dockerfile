@@ -34,6 +34,11 @@ ADD ./logstash-forwarder_0.4.0_amd64.deb /logstash-forwarder_0.4.0_amd64.deb
 RUN dpkg -i logstash-forwarder_0.4.0_amd64.deb
 RUN rm /logstash-forwarder_0.4.0_amd64.deb
 
+# Add certificates for development environment
+RUN mkdir /etc/nginx/ssl
+ADD ./server.crt /etc/nginx/ssl/server.crt
+ADD ./server.key /etc/nginx/ssl/server.key
+
 # Setup supervisor
 ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./supervisor_nginx.conf /etc/supervisor/conf.d/supervisor_nginx.conf
