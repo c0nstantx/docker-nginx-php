@@ -6,6 +6,8 @@ if [ ! -z "$LOGSTASH_IP" ] && [ ! -z "$LOGSTASH_HOST" ]; then
 fi
 if [ "$ENVIRONMENT" == "stage" ]; then
     mv /etc/nginx/conf.d/default.conf.stage /etc/nginx/conf.d/default.conf
+elif [ "$ENVIRONMENT" == "dev" ]; then
+    mv /etc/nginx/conf.d/default.conf.dev /etc/nginx/conf.d/default.conf
 fi
 /usr/sbin/php5-fpm
 supervisord -n
