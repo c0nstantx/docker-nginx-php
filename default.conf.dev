@@ -3,7 +3,9 @@ server {
     listen 80;
     server_name local.rocketgraph.com;
     root /var/www/html/web;
-
+    fastcgi_buffers  16 16k;
+    fastcgi_buffer_size  32k;
+    
     location / {
         # try to serve file directly, fallback to app.php
         try_files $uri /app.php$is_args$args;
@@ -40,6 +42,8 @@ server {
 server {
     listen 443;
     server_name local.rocketgraph.com;
+    fastcgi_buffers  16 16k;
+    fastcgi_buffer_size  32k;
 
     ssl on;
     ssl_certificate /etc/nginx/ssl/server.crt;
