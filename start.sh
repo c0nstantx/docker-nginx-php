@@ -9,5 +9,5 @@ if [ "$ENVIRONMENT" == "stage" ]; then
 elif [ "$ENVIRONMENT" == "dev" ]; then
     cp /etc/nginx/conf.d/default.conf.dev /etc/nginx/conf.d/default.conf
 fi
-/usr/sbin/php5-fpm
+/usr/local/sbin/php-fpm
 supervisord -n

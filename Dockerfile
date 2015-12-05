@@ -18,16 +18,111 @@ ADD ./default.conf /etc/nginx/conf.d/default.conf
 ADD ./default.conf.stage /etc/nginx/conf.d/default.conf.stage
 ADD ./default.conf.dev /etc/nginx/conf.d/default.conf.dev
 
-# Install PHP 5.6
-RUN \
-  apt-get -y update && \
-  apt-get -y install php5-cli php5-fpm php5-mysqlnd php5-curl php5-xsl php5-xdebug php5-sqlite php5-intl php5-gd php5-mcrypt
+# Install PHP 7
+ 
+# Download source and signature
+RUN curl -SL "http://php.net/get/php-7.0.0.tar.gz/from/this/mirror" -o php7.tar.gz
+RUN curl -SL "http://php.net/get/php-7.0.0.tar.gz.asc/from/this/mirror" -o php7.tar.gz.asc
+
+# Verify file
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763"
+RUN gpg --verify php7.tar.gz.asc php7.tar.gz
+
+# Install tools for compile
+RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev
+
+# Uncompress
+RUN tar zxvf php7.tar.gz
+
+ENV PHP_VERSION 7.0.0
+
+ENV PHP_CLI_INI_DIR /etc/php7/cli
+ENV PHP_FPM_INI_DIR /etc/php7/fpm
+
+RUN mkdir -p $PHP_CLI_INI_DIR/conf.d
+
+RUN mkdir -p $PHP_FPM_INI_DIR/conf.d
+
+#php7-cli
+RUN ./php-7.0.0/configure \
+    --with-config-file-path="$PHP_CLI_INI_DIR" \
+    --with-config-file-scan-dir="$PHP_CLI_INI_DIR/conf.d" \
+    --with-libdir=/lib/x86_64-linux-gnu \
+    --enable-mysqlnd \
+    --enable-intl \
+    --enable-mbstring \
+    --enable-zip \
+    --enable-exif \
+    --enable-pcntl \
+    --enable-bcmath \
+    --enable-ftp \
+    --enable-exif \
+    --enable-calendar \
+    --enable-sysvmsg \
+    --enable-sysvsem \
+    --enable-sysvshm \
+    --enable-wddx \
+    --enable-gd-native-ttf \
+    --enable-gd-jis-conv \
+    --with-curl \
+    --with-mysqli=mysqlnd \
+    --with-pdo-mysql=mysqlnd \
+    --with-openssl \
+    --with-xsl \
+    --with-gd \
+    --with-mcrypt \
+    --with-iconv
+
+
+RUN make -j"$(nproc)"
+RUN make install
+
+#php7-fpm
+RUN ./php-7.0.0/configure \
+    --with-config-file-path="$PHP_FPM_INI_DIR" \
+    --with-config-file-scan-dir="$PHP_FPM_INI_DIR/conf.d" \
+    --with-libdir=/lib/x86_64-linux-gnu \
+    --enable-mysqlnd \
+    --enable-intl \
+    --enable-mbstring \
+    --enable-zip \
+    --enable-exif \
+    --enable-pcntl \
+    --enable-bcmath \
+    --enable-ftp \
+    --enable-exif \
+    --enable-calendar \
+    --enable-sysvmsg \
+    --enable-sysvsem \
+    --enable-sysvshm \
+    --enable-wddx \
+    --enable-gd-native-ttf \
+    --enable-gd-jis-conv \
+    --enable-fpm \
+    --with-fpm-user=www-data \
+    --with-fpm-group=www-data \
+    --with-curl \
+    --with-mysqli=mysqlnd \
+    --with-pdo-mysql=mysqlnd \
+    --with-openssl \
+    --with-xsl \
+    --with-gd \
+    --with-mcrypt \
+    --with-iconv
+
+
+
+RUN make -j"$(nproc)"
+RUN make install
+
+# Clear files
+RUN rm -rf php*
 
 ADD ./nginx.conf /etc/nginx/nginx.conf
-ADD ./www.conf /etc/php5/fpm/pool.d/www.conf
-ADD ./php.ini /etc/php5/fpm/php.ini
-ADD ./php_cli.ini /etc/php5/cli/php.ini
-ADD ./browscap.ini /etc/php5/browscap.ini
+ADD ./www.conf /usr/local/etc/php-fpm.conf
+ADD ./php.ini /etc/php7/fpm/php.ini
+ADD ./php_cli.ini /etc/php7/cli/php.ini
+ADD ./browscap.ini /etc/php7/browscap.ini
 
 # Install logstash forwarder
 ADD ./logstash-forwarder_0.4.0_amd64.deb /logstash-forwarder_0.4.0_amd64.deb
