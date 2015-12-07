@@ -79,7 +79,8 @@ RUN ./php-7.0.0/configure \
     --with-bz2 \
     --with-mhash \
     --with-jpeg-dir=/usr \
-    --with-png-dir=/usr
+    --with-png-dir=/usr \
+    --with-zlib
 
 
 RUN make -j"$(nproc)"
@@ -124,7 +125,8 @@ RUN ./php-7.0.0/configure \
     --with-bz2 \
     --with-mhash \
     --with-jpeg-dir=/usr \
-    --with-png-dir=/usr
+    --with-png-dir=/usr \
+    --with-zlib
 
 
 
