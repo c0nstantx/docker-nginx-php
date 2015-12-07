@@ -29,7 +29,7 @@ RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "1A4E8B7277C42E53DBA9
 RUN gpg --verify php7.tar.gz.asc php7.tar.gz
 
 # Install tools for compile
-RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev libbz2-dev
+RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev libbz2-dev libjpeg-dev
 
 # Uncompress
 RUN tar zxvf php7.tar.gz
@@ -77,7 +77,9 @@ RUN ./php-7.0.0/configure \
     --with-mcrypt \
     --with-iconv \
     --with-bz2 \
-    --with-mhash
+    --with-mhash \
+    --with-jpeg-dir=/usr \
+    --with-png-dir=/usr
 
 
 RUN make -j"$(nproc)"
@@ -120,7 +122,9 @@ RUN ./php-7.0.0/configure \
     --with-mcrypt \
     --with-iconv \
     --with-bz2 \
-    --with-mhash
+    --with-mhash \
+    --with-jpeg-dir=/usr \
+    --with-png-dir=/usr
 
 
 
