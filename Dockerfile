@@ -144,6 +144,7 @@ RUN cd xdebug-2.4.0rc2 && \
 
 # Clear files
 RUN rm -rf php*
+RUN rm -rf xdebug*
 
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./www.conf /usr/local/etc/php-fpm.conf
