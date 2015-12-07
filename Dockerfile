@@ -29,7 +29,7 @@ RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "1A4E8B7277C42E53DBA9
 RUN gpg --verify php7.tar.gz.asc php7.tar.gz
 
 # Install tools for compile
-RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev
+RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev libbz2-dev
 
 # Uncompress
 RUN tar zxvf php7.tar.gz
@@ -64,6 +64,10 @@ RUN ./php-7.0.0/configure \
     --enable-wddx \
     --enable-gd-native-ttf \
     --enable-gd-jis-conv \
+    --enable-sockets \
+    --enable-opcache \
+    --enable-sysvsem \
+    --enable-sysvshm \
     --with-curl \
     --with-mysqli=mysqlnd \
     --with-pdo-mysql=mysqlnd \
@@ -71,7 +75,9 @@ RUN ./php-7.0.0/configure \
     --with-xsl \
     --with-gd \
     --with-mcrypt \
-    --with-iconv
+    --with-iconv \
+    --with-bz2 \
+    --with-mhash
 
 
 RUN make -j"$(nproc)"
@@ -98,6 +104,10 @@ RUN ./php-7.0.0/configure \
     --enable-wddx \
     --enable-gd-native-ttf \
     --enable-gd-jis-conv \
+    --enable-sockets \
+    --enable-opcache \
+    --enable-sysvsem \
+    --enable-sysvshm \
     --enable-fpm \
     --with-fpm-user=www-data \
     --with-fpm-group=www-data \
@@ -108,7 +118,9 @@ RUN ./php-7.0.0/configure \
     --with-xsl \
     --with-gd \
     --with-mcrypt \
-    --with-iconv
+    --with-iconv \
+    --with-bz2 \
+    --with-mhash
 
 
 
