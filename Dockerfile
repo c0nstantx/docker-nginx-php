@@ -44,7 +44,8 @@ RUN mkdir -p $PHP_CLI_INI_DIR/conf.d
 RUN mkdir -p $PHP_FPM_INI_DIR/conf.d
 
 #php7-cli
-RUN ./php-7.0.0/configure \
+RUN cd php-7.0.0 && \
+    ./configure \
     --with-config-file-path="$PHP_CLI_INI_DIR" \
     --with-config-file-scan-dir="$PHP_CLI_INI_DIR/conf.d" \
     --with-libdir=/lib/x86_64-linux-gnu \
@@ -80,14 +81,14 @@ RUN ./php-7.0.0/configure \
     --with-mhash \
     --with-jpeg-dir=/usr \
     --with-png-dir=/usr \
-    --with-zlib
-
-
-RUN make -j"$(nproc)"
-RUN make install
+    --with-zlib && \
+    make -j"$(nproc)" && \
+    make install && \
+    make clean
 
 #php7-fpm
-RUN ./php-7.0.0/configure \
+RUN cd php-7.0.0 && \
+    ./configure \
     --with-config-file-path="$PHP_FPM_INI_DIR" \
     --with-config-file-scan-dir="$PHP_FPM_INI_DIR/conf.d" \
     --with-libdir=/lib/x86_64-linux-gnu \
@@ -126,12 +127,10 @@ RUN ./php-7.0.0/configure \
     --with-mhash \
     --with-jpeg-dir=/usr \
     --with-png-dir=/usr \
-    --with-zlib
-
-
-
-RUN make -j"$(nproc)"
-RUN make install
+    --with-zlib && \
+    make -j"$(nproc)" && \
+    make install && \
+    make clean
 
 # Clear files
 RUN rm -rf php*
@@ -140,6 +139,8 @@ ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./www.conf /usr/local/etc/php-fpm.conf
 ADD ./php.ini /etc/php7/fpm/php.ini
 ADD ./php_cli.ini /etc/php7/cli/php.ini
+ADD ./php.ini.dev /etc/php7/fpm/php.ini.dev
+ADD ./php_cli.ini.dev /etc/php7/cli/php.ini.dev
 ADD ./browscap.ini /etc/php7/browscap.ini
 
 # Install logstash forwarder
