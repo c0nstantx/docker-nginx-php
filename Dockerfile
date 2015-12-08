@@ -136,7 +136,7 @@ RUN cd php-7.0.0 && \
 RUN curl -SL "http://xdebug.org/files/xdebug-2.4.0rc2.tgz" -o xdebug.tgz
 RUN tar zxvf xdebug.tgz
 
-RUN cd xdebug-2.4.0rc2 && \
+RUN cd xdebug-2.4.0RC2 && \
     phpize && \
     ./configure && \
     make && \
