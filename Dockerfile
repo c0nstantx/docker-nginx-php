@@ -40,8 +40,8 @@ ENV PHP_CLI_INI_DIR /etc/php7/cli
 ENV PHP_FPM_INI_DIR /etc/php7/fpm
 
 RUN mkdir -p $PHP_CLI_INI_DIR/conf.d
-
 RUN mkdir -p $PHP_FPM_INI_DIR/conf.d
+RUN mkdir -p $PHP_FPM_INI_DIR/pool.d
 
 #php7-cli
 RUN cd php-7.0.0 && \
@@ -148,7 +148,8 @@ RUN rm -rf php*
 RUN rm -rf xdebug*
 
 ADD ./nginx.conf /etc/nginx/nginx.conf
-ADD ./www.conf /usr/local/etc/php-fpm.conf
+ADD ./php-fpm.conf /usr/local/etc/php-fpm.conf
+ADD ./www.conf /etc/php7/fpm/pool.d/www.conf
 ADD ./php.ini /etc/php7/fpm/php.ini
 ADD ./php_cli.ini /etc/php7/cli/php.ini
 ADD ./php.ini.dev /etc/php7/fpm/php.ini.dev

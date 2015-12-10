@@ -572,7 +572,6 @@ html_errors = On
 ;error_log = php_errors.log
 ; Log errors to syslog (Event Log on Windows).
 ;error_log = syslog
-error_log = /var/log/php-fpm.log
 
 ;windows.show_crt_warning
 ; Default value: 0
@@ -1372,7 +1371,7 @@ session.save_handler = files
 ; where MODE is the octal representation of the mode. Note that this
 ; does not overwrite the process's umask.
 ; http://php.net/session.save-path
-;session.save_path = "/var/lib/php5/sessions"
+session.save_path = "/var/lib/php7/sessions"
 
 ; Whether to use strict session mode.
 ; Strict session mode does not accept uninitialized session ID and regenerate
