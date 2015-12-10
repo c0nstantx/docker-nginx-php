@@ -113,6 +113,7 @@ RUN cd php-7.0.0 && \
     --enable-sysvsem \
     --enable-sysvshm \
     --enable-fpm \
+    --disable-cli \
     --with-fpm-user=www-data \
     --with-fpm-group=www-data \
     --with-curl \
