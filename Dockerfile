@@ -147,6 +147,10 @@ RUN cd xdebug-2.4.0RC3 && \
 RUN rm -rf php*
 RUN rm -rf xdebug*
 
+# Create session folder
+RUN mkdir -p /var/lib/php7/sessions
+RUN chown www-data:root /var/lib/php7/sessions
+
 ADD ./nginx.conf /etc/nginx/nginx.conf
 ADD ./php-fpm.conf /usr/local/etc/php-fpm.conf
 ADD ./www.conf /etc/php7/fpm/pool.d/www.conf
