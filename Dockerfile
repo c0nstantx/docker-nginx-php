@@ -18,6 +18,12 @@ ADD ./default.conf /etc/nginx/conf.d/default.conf
 ADD ./default.conf.stage /etc/nginx/conf.d/default.conf.stage
 ADD ./default.conf.dev /etc/nginx/conf.d/default.conf.dev
 
+# Install stunnel
+RUN apt-get install -y stunnel
+
+ADD ./websockets.conf /etc/stunnel/websockets.conf
+ADD ./default_stunnel /etc/default/stunnel4
+
 # Install PHP 7
  
 # Download source and signature
