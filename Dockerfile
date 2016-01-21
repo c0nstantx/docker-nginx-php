@@ -22,7 +22,6 @@ ADD ./default.conf.dev /etc/nginx/conf.d/default.conf.dev
 RUN apt-get install -y stunnel
 
 ADD ./websockets.conf /etc/stunnel/websockets.conf
-ADD ./default_stunnel /etc/default/stunnel4
 
 # Install PHP 7
  
