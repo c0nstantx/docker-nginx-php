@@ -34,7 +34,7 @@ RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "1A4E8B7277C42E53DBA9
 RUN gpg --verify php7.tar.gz.asc php7.tar.gz
 
 # Install tools for compile
-RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev libbz2-dev libjpeg-dev autoconf
+RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-dev libmcrypt-dev libxslt-dev libicu-dev libssl-dev libbz2-dev libjpeg-dev autoconf librabbitmq-dev
 
 # Uncompress
 RUN tar zxvf php7.tar.gz
@@ -147,6 +147,16 @@ RUN cd xdebug-2.4.0RC3 && \
     ./configure && \
     make && \
     cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012
+
+# Install AMQP extension
+RUN curl -SL "https://pecl.php.net/get/amqp-1.7.0alpha2.tgz" -o amqp.tar.gz && \
+    tar zxvf amqp.tar.gz && \
+    cd amqp-1.7.0alpha2 && \
+    phpize && \
+    ./configure && \
+    make && \
+    cp modules/amqp.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012
+
 
 # Clear files
 RUN rm -rf php*
