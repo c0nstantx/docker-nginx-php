@@ -1,4 +1,3 @@
-root@33ac9ed765bb:/# vi /etc/default/stunnel4
 # /etc/default/stunnel
 # Julien LEMOINE <speedblue@debian.org>
 # September 2003
