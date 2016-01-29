@@ -134,10 +134,10 @@ RUN cd php-7.0.2 && \
     make clean
 
 # Install Xdebug
-RUN curl -SL "http://xdebug.org/files/xdebug-2.4.0rc3.tgz" -o xdebug.tgz
+RUN curl -SL "https://xdebug.org/files/xdebug-2.4.0rc4.tgz" -o xdebug.tgz
 RUN tar zxvf xdebug.tgz
 
-RUN cd xdebug-2.4.0RC3 && \
+RUN cd xdebug-2.4.0RC4 && \
     phpize && \
     ./configure && \
     make && \
