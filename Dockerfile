@@ -158,6 +158,8 @@ ADD ./php.ini /etc/php7/fpm/php.ini
 ADD ./php_cli.ini /etc/php7/cli/php.ini
 ADD ./php.ini.dev /etc/php7/fpm/php.ini.dev
 ADD ./php_cli.ini.dev /etc/php7/cli/php.ini.dev
+ADD ./php.ini.stage /etc/php7/fpm/php.ini.stage
+ADD ./php_cli.ini.stage /etc/php7/cli/php.ini.stage
 ADD ./browscap.ini /etc/php7/browscap.ini
 
 # Install logstash forwarder
