@@ -21,8 +21,8 @@ ADD ./default.conf.dev /etc/nginx/conf.d/default.conf.dev
 # Install PHP 7
  
 # Download source and signature
-RUN curl -SL "http://php.net/get/php-7.0.3.tar.gz/from/this/mirror" -o php7.tar.gz
-RUN curl -SL "http://php.net/get/php-7.0.3.tar.gz.asc/from/this/mirror" -o php7.tar.gz.asc
+RUN curl -SL "http://php.net/get/php-7.0.4.tar.gz/from/this/mirror" -o php7.tar.gz
+RUN curl -SL "http://php.net/get/php-7.0.4.tar.gz.asc/from/this/mirror" -o php7.tar.gz.asc
 
 # Verify file
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "1A4E8B7277C42E53DBA9C7B9BCAA30EA9C0D5763"
@@ -34,7 +34,7 @@ RUN apt-get install -y build-essential libxml2-dev libcurl4-gnutls-dev libpng-de
 # Uncompress
 RUN tar zxvf php7.tar.gz
 
-ENV PHP_VERSION 7.0.3
+ENV PHP_VERSION 7.0.4
 
 ENV PHP_CLI_INI_DIR /etc/php7/cli
 ENV PHP_FPM_INI_DIR /etc/php7/fpm
@@ -44,7 +44,7 @@ RUN mkdir -p $PHP_FPM_INI_DIR/conf.d
 RUN mkdir -p $PHP_FPM_INI_DIR/pool.d
 
 #php7-cli
-RUN cd php-7.0.3 && \
+RUN cd php-7.0.4 && \
     ./configure \
     --with-config-file-path="$PHP_CLI_INI_DIR" \
     --with-config-file-scan-dir="$PHP_CLI_INI_DIR/conf.d" \
@@ -87,7 +87,7 @@ RUN cd php-7.0.3 && \
     make clean
 
 #php7-fpm
-RUN cd php-7.0.3 && \
+RUN cd php-7.0.4 && \
     ./configure \
     --with-config-file-path="$PHP_FPM_INI_DIR" \
     --with-config-file-scan-dir="$PHP_FPM_INI_DIR/conf.d" \
@@ -134,10 +134,10 @@ RUN cd php-7.0.3 && \
     make clean
 
 # Install Xdebug
-RUN curl -SL "https://xdebug.org/files/xdebug-2.4.0rc4.tgz" -o xdebug.tgz
+RUN curl -SL "https://xdebug.org/files/xdebug-2.4.0.tgz" -o xdebug.tgz
 RUN tar zxvf xdebug.tgz
 
-RUN cd xdebug-2.4.0RC4 && \
+RUN cd xdebug-2.4.0 && \
     phpize && \
     ./configure && \
     make && \
