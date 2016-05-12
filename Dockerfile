@@ -16,6 +16,7 @@ RUN \
 
 ADD ./default.conf /etc/nginx/conf.d/default.conf
 ADD ./default.conf.stage /etc/nginx/conf.d/default.conf.stage
+ADD ./default.conf.stage_non_restricted /etc/nginx/conf.d/default.conf.stage_non_restricted
 ADD ./default.conf.dev /etc/nginx/conf.d/default.conf.dev
 
 # Install PHP 7
