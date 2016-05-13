@@ -144,9 +144,20 @@ RUN cd xdebug-2.4.0 && \
     make && \
     cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012
 
+# Install APCu
+RUN curl -SL "https://pecl.php.net/get/apcu-5.1.4.tgz" -o apcu.tgz
+RUN tar zxvf apcu.tgz
+
+RUN cd apcu-5.1.4 && \
+    phpize && \
+    ./configure && \
+    make && \
+    cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012
+
 # Clear files
 RUN rm -rf php*
 RUN rm -rf xdebug*
+RUN rm -rf apcu*
 
 # Create session folder
 RUN mkdir -p /var/lib/php7/sessions
