@@ -152,7 +152,7 @@ RUN cd apcu-5.1.4 && \
     phpize && \
     ./configure && \
     make && \
-    cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012
+    cp modules/apcu.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012
 
 # Clear files
 RUN rm -rf php*
