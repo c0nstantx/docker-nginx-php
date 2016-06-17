@@ -1955,3 +1955,4 @@ opcache.fast_shutdown=1
 zend_extension=opcache.so
 catch_workers_output = yes
 extension=apcu.so
+apc.enable_cli = true
