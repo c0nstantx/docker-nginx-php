@@ -179,6 +179,9 @@ ADD ./logstash-forwarder_0.4.0_amd64.deb /logstash-forwarder_0.4.0_amd64.deb
 RUN dpkg -i logstash-forwarder_0.4.0_amd64.deb
 RUN rm /logstash-forwarder_0.4.0_amd64.deb
 
+# Install ImageMagick
+RUN apt-get install -y imagemagick
+
 # Add certificates for development environment
 RUN mkdir /etc/nginx/ssl
 ADD ./server.crt /etc/nginx/ssl/server.crt
